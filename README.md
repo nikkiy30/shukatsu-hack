@@ -1,16 +1,52 @@
-# React + Vite
+# shukatsu-hack
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+就職活動で発生しがちな予定管理、メール作成、提出書類の整理を、ブラウザ上でまとめて扱うための React アプリです。
 
-Currently, two official plugins are available:
+現在はフロントエンドのみで動作し、書類メモなどのデータはブラウザの localStorage に保存します。バックエンドやログイン機能はまだありません。
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 主な機能
 
-## React Compiler
+- 説明会・面接・面談などの案内文から、日付・時刻・URL を推測して予定化
+- Google カレンダー用 URL と `.ics` ファイルの生成
+- お礼メール、日程調整、辞退連絡などの就活メールテンプレート表示とコピー
+- ES、自己PR、面接メモ、ポートフォリオ URL などのローカル保存
+- スマートフォンでも使いやすいタブ切り替え UI
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 技術構成
 
-## Expanding the ESLint configuration
+- React
+- Vite
+- Tailwind CSS
+- lucide-react
+- localStorage
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 開発
+
+依存関係をインストールします。
+
+```bash
+npm install
+```
+
+開発サーバーを起動します。
+
+```bash
+npm run dev
+```
+
+品質確認に使うコマンドです。
+
+```bash
+npm run lint
+npm run build
+```
+
+## 注意点
+
+このアプリは、ES や自己PRなどのセンシティブな情報をブラウザ内に保存します。共有端末や他人が触れる可能性のあるブラウザでは、保存内容の扱いに注意してください。
+
+予定抽出はルールベースの簡易実装です。特に複数日程、年度またぎ、複雑な時間表現、複数 URL を含む案内文では、抽出結果を手で確認してからカレンダーに登録してください。
+
+## 今後の展望
+
+改善案と優先度は [docs/roadmap.md](docs/roadmap.md) にまとめています。

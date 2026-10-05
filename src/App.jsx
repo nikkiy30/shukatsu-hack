@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState } from 'react';
 import {
   Calendar,
   Mail,
@@ -28,7 +28,7 @@ const extractDateTimeInfo = (text) => {
     .replace(/[（]/g, '(')
     .replace(/[）]/g, ')')
     .replace(/[／]/g, '/')
-    .replace(/[〜～ー－\-]/g, '~');
+    .replace(/[〜～ー－-]/g, '~');
 
   const now = new Date();
   const currentYear = now.getFullYear();
@@ -677,7 +677,6 @@ const MailTemplateTab = ({ showToast }) => {
 };
 
 const DocumentTab = ({ showToast }) => {
-  const [docs, setDocs] = useState([]);
   const [currentDoc, setCurrentDoc] = useState({
     id: null,
     title: '',
@@ -725,19 +724,17 @@ const DocumentTab = ({ showToast }) => {
     }
   ];
 
-  useEffect(() => {
-    const savedDocs = localStorage.getItem('shukatsu_docs');
-    if (savedDocs) {
-      try {
-        setDocs(JSON.parse(savedDocs));
-      } catch (e) {
-        setDocs(defaultDocs);
-      }
-    } else {
-      setDocs(defaultDocs);
-      localStorage.setItem('shukatsu_docs', JSON.stringify(defaultDocs));
+  const [docs, setDocs] = useState(() => {
+    try {
+      const savedDocs = localStorage.getItem('shukatsu_docs');
+      if (!savedDocs) return defaultDocs;
+
+      const parsedDocs = JSON.parse(savedDocs);
+      return Array.isArray(parsedDocs) ? parsedDocs : defaultDocs;
+    } catch {
+      return defaultDocs;
     }
-  }, []);
+  });
 
   const saveDocs = (newDocs) => {
     setDocs(newDocs);

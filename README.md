@@ -50,3 +50,5 @@ npm run build
 ## 今後の展望
 
 改善案と優先度は [docs/roadmap.md](docs/roadmap.md) にまとめています。
+
+保守・公開・セキュリティ面の展望は [docs/security-maintenance-roadmap.md](docs/security-maintenance-roadmap.md) にまとめています。
